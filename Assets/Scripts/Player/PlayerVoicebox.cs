@@ -43,7 +43,9 @@ public class PlayerVoicebox : MonoBehaviour
     private List<ESoundPitch> firstSoundArray = new List<ESoundPitch>();
     private List<ESoundPitch> secondSoundArray = new List<ESoundPitch>();
     private List<ESoundPitch> ThirdSoundArray = new List<ESoundPitch>();
-
+    private List<ESoundPitch> soundLibrary = new List<ESoundPitch>();
+    
+    
     private ESoundPitch[] soundArray = new ESoundPitch[3];
 
     private PlayerSpellcast _spellcast;
@@ -100,12 +102,8 @@ public class PlayerVoicebox : MonoBehaviour
 
     void Update()
     {
-        //DEBUG
-        if (CrossPlatformInputManager.GetAxis("Fire2") == 1)
-        {
-            _spellcast.CastSpell(soundArray);
-        }
-            
+        
+
         //if fire button pressed
         if (CrossPlatformInputManager.GetAxis("Fire1") == 1 && !isRecording)
         {
@@ -128,6 +126,8 @@ public class PlayerVoicebox : MonoBehaviour
                 else
                     lastSound = ESoundPitch.Low;
             }
+            
+            //check if sound was made and add to library
 
             if (isRecording)
             {

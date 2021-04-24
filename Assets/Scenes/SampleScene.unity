@@ -988,6 +988,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5759723874976753391, guid: acbd073a9d536fb429f4ff055ee94132,
+        type: 3}
+      propertyPath: mouseDebugMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5759723876127487066, guid: acbd073a9d536fb429f4ff055ee94132,
         type: 3}
       propertyPath: m_Name
