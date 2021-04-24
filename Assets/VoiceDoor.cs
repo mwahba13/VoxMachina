@@ -65,9 +65,8 @@ public class VoiceDoor : MonoBehaviour
         return (list[0] == _voiceKey[0] && list[1] == _voiceKey[1] && list[2] == _voiceKey[2]);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        GameEventSystem.current.OnPlayerCastSpell -= OnPlayerCastSpell;
     }
 }

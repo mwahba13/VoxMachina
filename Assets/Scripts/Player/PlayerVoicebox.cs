@@ -12,7 +12,8 @@ public enum ESoundPitch
 {
     High,
     Low,
-    None
+    None,
+    All,
 };
 
 
@@ -44,8 +45,9 @@ public class PlayerVoicebox : MonoBehaviour
     private List<ESoundPitch> ThirdSoundArray = new List<ESoundPitch>();
 
     private ESoundPitch[] soundArray = new ESoundPitch[3];
-    
 
+    private PlayerSpellcast _spellcast;
+    
     private bool isRecording = false;
     
     private int _minFreq;
@@ -60,7 +62,6 @@ public class PlayerVoicebox : MonoBehaviour
     
     private AudioSource _audioSource;
 
-    private KeywordRecognizer _recognizer;    
 
     #endregion
     
@@ -74,7 +75,7 @@ public class PlayerVoicebox : MonoBehaviour
         _spellTimer = 3.0f;
         
         spellcastUI.SetActive(false);
-        
+        _spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         
         InitMicrophone();
@@ -99,10 +100,15 @@ public class PlayerVoicebox : MonoBehaviour
 
     void Update()
     {
+        //DEBUG
+        if (CrossPlatformInputManager.GetAxis("Fire2") == 1)
+        {
+            _spellcast.CastSpell(soundArray);
+        }
+            
         //if fire button pressed
         if (CrossPlatformInputManager.GetAxis("Fire1") == 1 && !isRecording)
         {
-            Debug.Log("Start recording");
             isRecording = true;
             _spellTimer = 3.0f;
             
@@ -187,6 +193,7 @@ public class PlayerVoicebox : MonoBehaviour
         _spellTimer -= Time.deltaTime;
         if (_spellTimer < 0.0f && isRecording)
         {
+            _spellcast.CastSpell(soundArray);
             GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
             spellcastUI.SetActive(false);
