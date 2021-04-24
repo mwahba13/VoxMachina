@@ -22,6 +22,15 @@ public class GameEventSystem : MonoBehaviour
             OnPlayerCastSpell(list);
         }
     }
+
+
+    public event Action<ESoundPitch[]> OnTerminalCastSpell;
+
+    public void TerminalCastSpell(ESoundPitch[] list)
+    {
+        if (OnTerminalCastSpell != null)
+            OnTerminalCastSpell(list);
+    }
     
     
     // Start is called before the first frame update

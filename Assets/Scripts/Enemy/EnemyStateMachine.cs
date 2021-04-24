@@ -10,6 +10,7 @@ public enum EEnemyState
     Idle,
     Wandering,          //wandering aimlessly
     Patrolling,         //moving along a pre-determined path
+    Stunned,            //stunned for time period
     
     //Seeking sound sub tree
     SeekingSound_Moving,       //moving towards sound it heard within hearing radius
@@ -36,8 +37,9 @@ public class EnemyStateMachine : MonoBehaviour
     //for dynamic patrol routes
     private Vector3[] _dynamicPatrolNodes = new Vector3[4];
     private int _dynPatrolIndex;
-    
-    
+
+    [SerializeField] private float _stunTimer;
+    public float stunDuration;
     
     //Nav mesh agent
     private NavMeshAgent _navAgent;
@@ -80,6 +82,9 @@ public class EnemyStateMachine : MonoBehaviour
             case EEnemyState.SeekingSound_Patrolling:
                 SeekingSoundPatrollingBehavior();
                 break;
+            case EEnemyState.Stunned:
+                StunnedStateBehavior();
+                break;
             case EEnemyState.Idle:
                 break;
             default:
@@ -92,6 +97,10 @@ public class EnemyStateMachine : MonoBehaviour
     #region StateFunctions
     public void StateTransition(EEnemyState newState)
     {
+        //if stunned, ignore state transition
+        if (_state.Equals(EEnemyState.Stunned))
+            return;
+        
         if (newState.Equals(EEnemyState.Wandering))
         {
             //set random destination
@@ -114,11 +123,23 @@ public class EnemyStateMachine : MonoBehaviour
             patrolPathIndex = 0;
             _navAgent.SetDestination(patrolPathNodes[patrolPathIndex].position);
         }
+        
+        else if (newState.Equals(EEnemyState.Stunned))
+        {
+            _stunTimer = stunDuration;
+            _navAgent.SetDestination(transform.position);
+        }
 
         _state = newState;
     }
 
-
+    private void StunnedStateBehavior()
+    {
+        _stunTimer -= Time.deltaTime;
+        
+        if(_stunTimer < 0.0f)
+            StateTransition(EEnemyState.Wandering);
+    }
 
     private void WanderingStateBehavior()
     {
