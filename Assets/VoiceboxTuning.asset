@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec55843e984f68b6db922e375bcdbf, type: 3}
   m_Name: VoiceboxTuning
   m_EditorClassIdentifier: 
+  lowPitchColor: {r: 1, g: 0, b: 0, a: 1}
   lowFreqFloor: 10
   lowFreqCeiling: 150
+  highPitchColor: {r: 0, g: 0.09174347, b: 1, a: 1}
   highFreqFloor: 200
   highFreqCeiling: 300

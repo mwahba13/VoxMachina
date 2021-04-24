@@ -20,24 +20,35 @@ public class PlayerVoicebox : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    #region Fields
+
+    //control spellcasting with mouse not voice
+    public bool mouseDebugMode;
+    
     public float[] spectrum = new float[1024];
     public float threshold = 0.0f;
     public float microphonePitch;
     public VoiceboxTuningParams tuningParams;
     public ESoundPitch lastSound;
 
+    //UI ELEMENTS
     [SerializeField] private GameObject spellcastUI;
     [SerializeField] private Image spellcastScrollerImage;
+    [SerializeField] private Image firstSoundPanel;
+    [SerializeField] private Image secondSoundPanel;
+    [SerializeField] private Image thirdSoundPanel;
+    
+    //these keep track of the sounds made during spellcasting - should be more accurate
+    private List<ESoundPitch> firstSoundArray = new List<ESoundPitch>();
+    private List<ESoundPitch> secondSoundArray = new List<ESoundPitch>();
+    private List<ESoundPitch> ThirdSoundArray = new List<ESoundPitch>();
 
     private bool isRecording = false;
     
     private int _minFreq;
     private int _maxFreq;
 
-    //these keep track of the sounds made during spellcasting - should be more accurate
-    private List<ESoundPitch> firstSoundArray = new List<ESoundPitch>();
-    private List<ESoundPitch> secondSoundArray = new List<ESoundPitch>();
-    private List<ESoundPitch> ThirdSoundArray = new List<ESoundPitch>();
+
     
     //players must cast spell over the course of 3 seconds
     private float _spellTimer;
@@ -46,7 +57,11 @@ public class PlayerVoicebox : MonoBehaviour
     
     private AudioSource _audioSource;
 
-    private KeywordRecognizer _recognizer;
+    private KeywordRecognizer _recognizer;    
+
+    #endregion
+    
+
     
     
     
@@ -94,30 +109,53 @@ public class PlayerVoicebox : MonoBehaviour
 
         if (_audioSource.isPlaying)
         {
-            
-            lastSound = AnalyzeAudio();
+            if(!mouseDebugMode)
+                lastSound = AnalyzeAudio();
+            else
+            {
+                if (isRecording && CrossPlatformInputManager.GetAxis("Fire1") == 1)
+                    lastSound = ESoundPitch.High;
+                else
+                    lastSound = ESoundPitch.Low;
+            }
 
             if (isRecording)
             {
                 //affect onscreen UI
                 Vector3 imageLocalPos = spellcastScrollerImage.rectTransform.localPosition;
-            
-                //spellcastScrollerImage.rectTransform.position.Set(imageLocalPos.x,200,imageLocalPos.z);
-                
-                
                 if (lastSound.Equals(ESoundPitch.High))
-                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,100,imageLocalPos.z),Quaternion.identity);
+                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,400,imageLocalPos.z),Quaternion.identity);
                 else if(lastSound.Equals(ESoundPitch.Low))
-                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,10,imageLocalPos.z),Quaternion.identity);
+                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,150,imageLocalPos.z),Quaternion.identity);
+
+
+                ESoundPitch tempPitch;
                 
-            
                 //add sound to appropriate array
-                if(_spellTimer > 2.0f)
-                    firstSoundArray.Add(lastSound);
-                else if(_spellTimer > 1.0f)
-                    secondSoundArray.Add(lastSound);
-                else if(_spellTimer > 0.0f)
-                    ThirdSoundArray.Add(lastSound);                
+                if (_spellTimer > 2.0f)
+                {
+                    tempPitch = AddPitchToArray(lastSound, firstSoundArray);
+
+                    if (_spellTimer < 2.5f)
+                        ChangePanelColor(firstSoundPanel,tempPitch);
+                        
+                    
+                }
+
+                else if (_spellTimer > 1.0f)
+                {
+                    tempPitch = AddPitchToArray(lastSound, secondSoundArray);
+                    
+                    if(_spellTimer < 1.5f)
+                        ChangePanelColor(secondSoundPanel,tempPitch);
+                }
+                else if (_spellTimer > 0.0f)
+                {
+                    tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
+                    
+                    if(_spellTimer < 0.5f)
+                        ChangePanelColor(thirdSoundPanel,tempPitch);
+                }
             }
 
                 
@@ -134,13 +172,42 @@ public class PlayerVoicebox : MonoBehaviour
         _spellTimer -= Time.deltaTime;
         if (_spellTimer < 0.0f)
         {
+            
+            
             isRecording = false;
             spellcastUI.SetActive(false);
-            DeterminePitches();
+            CleanupUI();
+           // DeterminePitches();
         }
 
     }
 
+    #region AudioFunctions
+
+    
+    //adds pitch to given array and returns the most common pitch in that array
+    ESoundPitch AddPitchToArray(ESoundPitch pitch,List<ESoundPitch> list)
+    {
+        list.Add(pitch);
+
+        int highCount = 0;
+        int lowCount = 0;
+        
+        foreach (var pit in list)
+        {           
+            if (pit.Equals(ESoundPitch.High))
+                highCount++;
+            else
+                lowCount++;
+        }
+
+        if (highCount > lowCount)
+            return ESoundPitch.High;
+        else
+            return ESoundPitch.Low;
+
+    }
+    
     void DeterminePitches()
     {
         int highCount = 0;
@@ -209,6 +276,14 @@ public class PlayerVoicebox : MonoBehaviour
     }
 
 
+    void ChangePanelColor(Image panelImage, ESoundPitch pitch)
+    {
+        if (pitch.Equals(ESoundPitch.High))
+            panelImage.color = tuningParams.highPitchColor;
+        else
+            panelImage.color = tuningParams.lowPitchColor;
+    }
+    
     ESoundPitch AnalyzeAudio()
     {
         _audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
@@ -260,9 +335,26 @@ public class PlayerVoicebox : MonoBehaviour
         Debug.Log("Spectrum 2: " + spectrum[2]*100.0f);
         */
     }
-    
 
 
+
+    #endregion
+
+    #region Utilities
+
+    void CleanupUI()
+    {
+        firstSoundArray.Clear();
+        secondSoundArray.Clear();
+        ThirdSoundArray.Clear();
+        
+        firstSoundPanel.color = Color.white;
+        secondSoundPanel.color = Color.white;
+        thirdSoundPanel.color = Color.white;
+        
+    }
+
+    #endregion
 
 
 }
