@@ -43,6 +43,9 @@ public class PlayerVoicebox : MonoBehaviour
     private List<ESoundPitch> secondSoundArray = new List<ESoundPitch>();
     private List<ESoundPitch> ThirdSoundArray = new List<ESoundPitch>();
 
+    private ESoundPitch[] soundArray = new ESoundPitch[3];
+    
+
     private bool isRecording = false;
     
     private int _minFreq;
@@ -70,6 +73,7 @@ public class PlayerVoicebox : MonoBehaviour
 
         _spellTimer = 3.0f;
         
+        spellcastUI.SetActive(false);
         
         _audioSource = GetComponent<AudioSource>();
         
@@ -137,25 +141,36 @@ public class PlayerVoicebox : MonoBehaviour
                     tempPitch = AddPitchToArray(lastSound, firstSoundArray);
 
                     if (_spellTimer < 2.5f)
+                    {
                         ChangePanelColor(firstSoundPanel,tempPitch);
-                        
-                    
+                        soundArray[0] = tempPitch;
+                    }
+
                 }
 
                 else if (_spellTimer > 1.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, secondSoundArray);
-                    
-                    if(_spellTimer < 1.5f)
+
+                    if (_spellTimer < 1.5f)
+                    {
+                        soundArray[1] = tempPitch;
                         ChangePanelColor(secondSoundPanel,tempPitch);
+
+                    }
                 }
                 else if (_spellTimer > 0.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
-                    
-                    if(_spellTimer < 0.5f)
+
+                    if (_spellTimer < 0.5f)
+                    {
+                        soundArray[2] = tempPitch;
                         ChangePanelColor(thirdSoundPanel,tempPitch);
+
+                    }
                 }
+
             }
 
                 
@@ -170,10 +185,9 @@ public class PlayerVoicebox : MonoBehaviour
         }
 
         _spellTimer -= Time.deltaTime;
-        if (_spellTimer < 0.0f)
+        if (_spellTimer < 0.0f && isRecording)
         {
-            
-            
+            GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
             spellcastUI.SetActive(false);
             CleanupUI();
@@ -182,6 +196,14 @@ public class PlayerVoicebox : MonoBehaviour
 
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
     #region AudioFunctions
 
     

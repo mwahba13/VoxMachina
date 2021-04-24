@@ -58,8 +58,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Enemy\EnemyEventHandler.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerVoicebox.cs" />
      <Compile Include="Assets\Scripts\ScriptableObjs\VoiceboxTuningParams.cs" />
+     <Compile Include="Assets\Scripts\Systems\GameEventSystem.cs" />
+     <Compile Include="Assets\VoiceDoor.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Program Files/Unity/Unity Projects/Voice Horror/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
