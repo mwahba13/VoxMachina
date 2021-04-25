@@ -42,7 +42,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0.046112183, a: 1}
+  m_Color: {r: 1, g: 0.99862754, b: 0, a: 1}
   m_Intensity: 24
   m_Range: 1
   m_SpotAngle: 30
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 969081972618516694}
   - component: {fileID: 4618941611966580722}
   m_Layer: 0
-  m_Name: Cylinder.003
+  m_Name: SecondCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 632248b3976b6bb42927c2988f69fb83, type: 3}
+  - {fileID: 2100000, guid: f9ab17e0feb338d4a9cd24d358a77bee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -229,7 +229,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9012f605184d5b44cb1033ed6fe630b8, type: 2}
+  - {fileID: 2100000, guid: f9ab17e0feb338d4a9cd24d358a77bee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -371,7 +371,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0.046112183, a: 1}
+  m_Color: {r: 0.96015084, g: 1, b: 0, a: 1}
   m_Intensity: 24
   m_Range: 1
   m_SpotAngle: 30
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 7264528654887660744}
   - component: {fileID: 8034456998745277502}
   m_Layer: 0
-  m_Name: Cylinder.004
+  m_Name: ThirdCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,7 +520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 632248b3976b6bb42927c2988f69fb83, type: 3}
+  - {fileID: 2100000, guid: f9ab17e0feb338d4a9cd24d358a77bee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -725,6 +725,7 @@ GameObject:
   - component: {fileID: 5759723876128208506}
   - component: {fileID: 5759723876121586266}
   - component: {fileID: 5759723876117767196}
+  - component: {fileID: 1552825736}
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -805,6 +806,49 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5759723876127487064}
   m_Enabled: 1
+--- !u!114 &1552825736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759723876127487064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cfuStatus: PSXEffects v1.18.1 - up to date.
+  sections: 01010101
+  customRes: {x: 1920, y: 1080}
+  resolutionFactor: 1
+  limitFramerate: -1
+  skipFrames: 0
+  affineMapping: 1
+  polygonalDrawDistance: 0
+  vertexInaccuracy: 30
+  polygonInaccuracy: 2
+  colorDepth: 5
+  scanlines: 1
+  scanlineIntensity: 5
+  ditherTexture: {fileID: 0}
+  dithering: 1
+  ditherThreshold: 1
+  ditherIntensity: 16
+  maxDarkness: 20
+  subtractFade: 0
+  favorRed: 1
+  worldSpaceSnapping: 1
+  postProcessing: 1
+  verticalScanlines: 1
+  shadowIntensity: 0.5
+  downscale: 0
+  snapCamera: 0
+  camInaccuracy: 0.05
+  camSnapping: 0
+  shadowType: 0
+  ditherSky: 0
+  ditherType: 1
 --- !u!1 &5759723876127487066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,12 +1415,13 @@ MonoBehaviour:
   lastSound: 2
   redMat: {fileID: 2100000, guid: 9012f605184d5b44cb1033ed6fe630b8, type: 2}
   greenMat: {fileID: 2100000, guid: 93b087f8c2289c243afd2b3eb94f080a, type: 2}
-  whiteMat: {fileID: 0}
-  _pitchMat1: {fileID: 0}
+  whiteMat: {fileID: 2100000, guid: f9ab17e0feb338d4a9cd24d358a77bee, type: 2}
+  _pitchScreen: {fileID: 3991159275414203483}
+  _pitchMat1: {fileID: 7595739358774945364}
   _pitchLight1: {fileID: 3645168445988939592}
-  _pitchMat2: {fileID: 0}
+  _pitchMat2: {fileID: 3966033167584791389}
   _pitchLight2: {fileID: 2428178838169809249}
-  _pitchMat3: {fileID: 0}
+  _pitchMat3: {fileID: 4901802515760203825}
   _pitchLight3: {fileID: 3754018987549026660}
 --- !u!1 &7595739358774945364
 GameObject:
@@ -1390,7 +1435,7 @@ GameObject:
   - component: {fileID: 915310871855478057}
   - component: {fileID: 3446764853164043875}
   m_Layer: 0
-  m_Name: Cylinder.005
+  m_Name: FirstCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1436,7 +1481,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6922793697723135513, guid: 632248b3976b6bb42927c2988f69fb83, type: 3}
+  - {fileID: 2100000, guid: f9ab17e0feb338d4a9cd24d358a77bee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1578,7 +1623,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.99501103, b: 0, a: 1}
   m_Intensity: 24
   m_Range: 1
   m_SpotAngle: 30
