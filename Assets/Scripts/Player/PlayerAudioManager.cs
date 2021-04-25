@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,10 +16,13 @@ public class PlayerAudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    private void Awake()
+    {
         _source = GetComponent<AudioSource>();
     }
 
-    
     public void PlayTargetHitClip(){ _source.PlayOneShot(hitSound);}
     
     public void PlayTargetSuccessClip(){_source.PlayOneShot(successSound);}
