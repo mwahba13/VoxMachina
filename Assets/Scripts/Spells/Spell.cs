@@ -20,12 +20,5 @@ public class Spell : MonoBehaviour
         _rb.AddForce(forceDir*_speed,ForceMode.Impulse);
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Destroy(this.gameObject);
-            other.gameObject.GetComponent<EnemyBase>().DecrementHealth(_damage);
-        }
-    }
+
 }

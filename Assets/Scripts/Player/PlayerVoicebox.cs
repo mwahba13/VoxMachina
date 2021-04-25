@@ -193,7 +193,7 @@ public class PlayerVoicebox : MonoBehaviour
         _spellTimer -= Time.deltaTime;
         if (_spellTimer < 0.0f && isRecording)
         {
-            _spellcast.CastSpell(soundArray);
+           // _spellcast.CastSpell(soundArray);
             GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
             spellcastUI.SetActive(false);

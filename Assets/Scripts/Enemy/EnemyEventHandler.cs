@@ -1,9 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+public enum EEnemyType
+{
+    Small,
+    Med,
+    Large,
+}
 
 public class EnemyEventHandler : MonoBehaviour
 {
+
+    [SerializeField] private EEnemyType _type;
     //check if player is within hearing raidus
     private bool _isPlayerNear;
     [SerializeField] private ESoundPitch[] _weakness = new ESoundPitch[3];
@@ -80,6 +89,38 @@ public class EnemyEventHandler : MonoBehaviour
                     list[1] == _weakness[1] &&
                     list[2] == _weakness[2]);
         }
+    }
+
+    private void RandomizeWeakness()
+    {
+        int numToAdd = 0;
+        
+        switch (_type)
+        {
+            case EEnemyType.Small:
+                numToAdd = 1;
+                break;
+            case EEnemyType.Med:
+                numToAdd = 2;
+                break;
+            case EEnemyType.Large:
+                numToAdd = 3;
+                break;
+            default:
+                break;
+        }
+
+        ESoundPitch[] randPitch = new ESoundPitch[2];
+        randPitch[0] = ESoundPitch.Low;
+        randPitch[1] = ESoundPitch.High;
+        
+        for (int i = 0; i < numToAdd; i++)
+        {
+            Random.Range(0, 2);
+
+            _weakness[i] = randPitch[Random.Range(0, 2)];
+        }
+        
     }
 
     #endregion
