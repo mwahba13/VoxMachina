@@ -61,6 +61,10 @@ public class EnemyEventHandler : MonoBehaviour
         {
             _stateMachine.StateTransition(EEnemyState.Stunned);
         }
+        else
+        {
+            _stateMachine.StateTransition(EEnemyState.SeekingSound_Moving);
+        }
     }
 
 

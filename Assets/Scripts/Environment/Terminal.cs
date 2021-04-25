@@ -6,11 +6,18 @@ using UnityEngine;
 public class Terminal : MonoBehaviour
 {
     private bool _isPlayerNear = false;
+
+    private AudioSource _source;
+
+    private Collider _collider;
     
     // Start is called before the first frame update
     void Start()
     {
         GameEventSystem.current.OnPlayerCastSpell += OnPlayerCastSpell;
+
+        _collider = GetComponent<Collider>();
+        _source = GetComponent<AudioSource>();
     }
 
     private void OnPlayerCastSpell(ESoundPitch[] list)
@@ -18,9 +25,10 @@ public class Terminal : MonoBehaviour
 
         if (_isPlayerNear)
         {
-            Debug.Log("Player Cast spell in range");
             GameEventSystem.current.TerminalCastSpell(list);
+            _source.Play();
 
+            _collider.enabled = false;
         }
     }
 
@@ -29,7 +37,6 @@ public class Terminal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isPlayerNear = true;
-            Debug.Log("Player is near");            
         }
     }
 
@@ -37,7 +44,6 @@ public class Terminal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player left area");
             _isPlayerNear = false;
 
         }

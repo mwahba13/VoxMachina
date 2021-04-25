@@ -72,8 +72,10 @@
      <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyEventHandler.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyStateMachine.cs" />
+     <Compile Include="Assets\Scripts\Environment\AudioTriggerVolume.cs" />
      <Compile Include="Assets\Scripts\Environment\Terminal.cs" />
      <Compile Include="Assets\Scripts\Environment\VoiceDoor.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerAudioManager.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerSpellcast.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerVoicebox.cs" />
      <Compile Include="Assets\Scripts\ScriptableObjs\VoiceboxTuningParams.cs" />

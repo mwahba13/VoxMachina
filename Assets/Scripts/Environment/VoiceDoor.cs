@@ -17,6 +17,8 @@ public class VoiceDoor : MonoBehaviour
     private AudioSource _source;
     public AudioClip openDoorClip;
     public AudioClip closeDoorClip;
+    public AudioClip keyAcceptClip;
+    public AudioClip keyRejectClip;
     
     // Start is called before the first frame update
     void Start()
@@ -34,9 +36,14 @@ public class VoiceDoor : MonoBehaviour
         
         if (_playerIsNear && IsKeyMatched(list))
         {
+            _source.PlayOneShot(keyAcceptClip);
             _source.PlayOneShot(openDoorClip);
             _animator.SetTrigger("OpenDoor");
             _isDoorOpen = true;
+        }
+        else if (_playerIsNear && !IsKeyMatched(list))
+        {
+            _source.PlayOneShot(keyRejectClip);
         }
     }
 

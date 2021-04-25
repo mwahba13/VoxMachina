@@ -132,6 +132,7 @@ public class EnemyStateMachine : MonoBehaviour
         
         else if (newState.Equals(EEnemyState.Stunned))
         {
+            _audioManager.StopSounds();
             _audioManager.PlayPowerDown();
             _stunTimer = stunDuration;
             _navAgent.SetDestination(transform.position);

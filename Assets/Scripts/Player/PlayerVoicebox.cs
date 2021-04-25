@@ -25,14 +25,18 @@ public class PlayerVoicebox : MonoBehaviour
 
     //control spellcasting with mouse not voice
     public bool mouseDebugMode;
+
+
+    public float cooldownDuration;
+    private float _cooldownTimer;
     
     public float[] spectrum = new float[1024];
     public float threshold = 0.0f;
     public float microphonePitch;
     public VoiceboxTuningParams tuningParams;
     public ESoundPitch lastSound;
-    
 
+    
 
     public Material redMat;
     public Material greenMat;
@@ -74,7 +78,8 @@ public class PlayerVoicebox : MonoBehaviour
     private string _microphoneName;
     
     private AudioSource _audioSource;
-
+    private PlayerAudioManager _audioManager;
+    private Animator _animator;
 
     #endregion
     
@@ -86,10 +91,11 @@ public class PlayerVoicebox : MonoBehaviour
     {
 
         _spellTimer = 3.0f;
-        
+        _cooldownTimer = 0.0f;
         //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
-        
+        _audioManager = GetComponentInChildren<PlayerAudioManager>();
+        _animator = GetComponentInChildren<Animator>();
         InitMicrophone();
         
         _audioSource.Play();
@@ -112,14 +118,16 @@ public class PlayerVoicebox : MonoBehaviour
 
     void Update()
     {
-        
-
+    
         //if fire button pressed
-        if (CrossPlatformInputManager.GetAxis("Fire1") == 1 && !isRecording)
+        if ((CrossPlatformInputManager.GetAxis("Fire1") == 1 || CrossPlatformInputManager.GetAxis("Fire2")==1) 
+            && !isRecording 
+            && _cooldownTimer < 0.0f)
         {
             isRecording = true;
+            _animator.SetBool("isRecording",true);
             _spellTimer = 3.0f;
-            
+            _audioManager.PlayTargetHitClip();
             //make UI visible
             //spellcastUI.SetActive(true);
             
@@ -132,9 +140,10 @@ public class PlayerVoicebox : MonoBehaviour
             else
             {
                 if (isRecording && CrossPlatformInputManager.GetAxis("Fire1") == 1)
-                    lastSound = ESoundPitch.High;
-                else
                     lastSound = ESoundPitch.Low;
+                else if(isRecording && CrossPlatformInputManager.GetAxis("Fire2") == 1)
+                    lastSound = ESoundPitch.High;
+                
             }
             
             //check if sound was made and add to library
@@ -155,6 +164,7 @@ public class PlayerVoicebox : MonoBehaviour
                 if (_spellTimer > 2.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, firstSoundArray);
+                    SetAnimation(tempPitch);
 
                     if (_spellTimer < 2.5f)
                     {
@@ -167,22 +177,26 @@ public class PlayerVoicebox : MonoBehaviour
                 else if (_spellTimer > 1.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, secondSoundArray);
+                    SetAnimation(tempPitch);
 
                     if (_spellTimer < 1.5f)
                     {
                         soundArray[1] = tempPitch;
                         ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
 
+
                     }
                 }
                 else if (_spellTimer > 0.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
+                    SetAnimation(tempPitch);
 
                     if (_spellTimer < 0.5f)
                     {
                         soundArray[2] = tempPitch;
                         ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
+
 
                     }
                 }
@@ -199,13 +213,19 @@ public class PlayerVoicebox : MonoBehaviour
             //_audioSource.clip = Microphone.Start(_microphoneName, true, 10,44100);
             _audioSource.Play();
         }
-
+        
+        _cooldownTimer -= Time.deltaTime;
+        _animator.SetFloat("cooldownTimer",_cooldownTimer);
+        
         _spellTimer -= Time.deltaTime;
         if (_spellTimer < 0.0f && isRecording)
         {
+            _cooldownTimer = cooldownDuration;
            // _spellcast.CastSpell(soundArray);
+           _audioManager.PlayTargetSuccessClip();
             GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
+            _animator.SetBool("isRecording",false);
             //spellcastUI.SetActive(false);
             CleanupUI();
            // DeterminePitches();
@@ -329,8 +349,15 @@ public class PlayerVoicebox : MonoBehaviour
         }
 
     }
-    
 
+    void SetAnimation(ESoundPitch pit)
+    {
+        if (pit.Equals(ESoundPitch.High))
+            _animator.SetBool("isHigh",true);
+        else 
+            _animator.SetBool("isHigh",false);
+    }
+    
     
     ESoundPitch AnalyzeAudio()
     {
@@ -406,6 +433,7 @@ public class PlayerVoicebox : MonoBehaviour
         _pitchLight3.color = Color.yellow;
 
     }
+    
 
     #endregion
 
