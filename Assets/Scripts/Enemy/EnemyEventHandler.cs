@@ -146,7 +146,9 @@ public class EnemyEventHandler : MonoBehaviour
         
         //adjust colors of lights and materials to reflect weakness
         _weakspotLight1.color = GetColorFromPitch(_weakness[0]);
-        _weakspotMat1.GetComponent<Renderer>().material = GetMaterialFromPitch(_weakness[0]);
+        
+        if(_type != EEnemyType.Small)
+            _weakspotMat1.GetComponent<Renderer>().material = GetMaterialFromPitch(_weakness[0]);
 
         if (_type.Equals(EEnemyType.Large) || _type.Equals(EEnemyType.Med))
         {

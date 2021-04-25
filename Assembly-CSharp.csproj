@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\Enemy\EnemyEventHandler.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyStateMachine.cs" />
      <Compile Include="Assets\Scripts\Environment\AudioTriggerVolume.cs" />
+     <Compile Include="Assets\Scripts\Environment\RandomWall.cs" />
      <Compile Include="Assets\Scripts\Environment\Terminal.cs" />
      <Compile Include="Assets\Scripts\Environment\VoiceDoor.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAudioManager.cs" />
