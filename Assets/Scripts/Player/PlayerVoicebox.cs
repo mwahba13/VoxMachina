@@ -48,7 +48,7 @@ public class PlayerVoicebox : MonoBehaviour
     
     private ESoundPitch[] soundArray = new ESoundPitch[3];
 
-    private PlayerSpellcast _spellcast;
+    //private PlayerSpellcast _spellcast;
     
     private bool isRecording = false;
     
@@ -77,7 +77,7 @@ public class PlayerVoicebox : MonoBehaviour
         _spellTimer = 3.0f;
         
         spellcastUI.SetActive(false);
-        _spellcast = GetComponent<PlayerSpellcast>();
+        //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         
         InitMicrophone();

@@ -16,6 +16,21 @@ public class EnemyEventHandler : MonoBehaviour
     //check if player is within hearing raidus
     private bool _isPlayerNear;
     [SerializeField] private ESoundPitch[] _weakness = new ESoundPitch[3];
+
+    public Material redMat;
+    public Material greenMat;
+    
+    //for changing color/material of enemy weakness
+    [SerializeField] private GameObject _weakspotMat1;
+    [SerializeField] private Light _weakspotLight1;
+    
+    [SerializeField] private GameObject _weakspotMat2;
+    [SerializeField] private Light _weakspotLight2;
+    
+    [SerializeField] private GameObject _weakspotMat3;
+    [SerializeField] private Light _weakspotLight3;
+    
+    
     
     private EnemyStateMachine _stateMachine;
     
@@ -24,6 +39,8 @@ public class EnemyEventHandler : MonoBehaviour
         GameEventSystem.current.OnPlayerCastSpell += OnPlayerCastSpell;
         GameEventSystem.current.OnTerminalCastSpell += OnTerminalCastSpell;
         _stateMachine = GetComponentInParent<EnemyStateMachine>();
+        
+        RandomizeWeakness();
     }
 
 
@@ -72,13 +89,13 @@ public class EnemyEventHandler : MonoBehaviour
 
     private bool IsTargetedByTerminal(ESoundPitch[] list)
     {
-        if (_weakness.Length == 1)
+        if (_type.Equals(EEnemyType.Small))
         {
             return (list[0] == _weakness[0] ||
                     list[1] == _weakness[0] ||
                     list[2] == _weakness[0]);
         }
-        else if (_weakness.Length == 2)
+        else if (_type.Equals(EEnemyType.Med))
         {
             return ((list[0] == _weakness[0] && list[1] == _weakness[1]) ||
                     (list[1] == _weakness[0] && list[2] == _weakness[1]));
@@ -121,6 +138,38 @@ public class EnemyEventHandler : MonoBehaviour
             _weakness[i] = randPitch[Random.Range(0, 2)];
         }
         
+        //adjust colors of lights and materials to reflect weakness
+        _weakspotLight1.color = GetColorFromPitch(_weakness[0]);
+        _weakspotMat1.GetComponent<Renderer>().material = GetMaterialFromPitch(_weakness[0]);
+
+        if (_type.Equals(EEnemyType.Large) || _type.Equals(EEnemyType.Med))
+        {
+            _weakspotLight2.color = GetColorFromPitch(_weakness[1]);
+            _weakspotMat2.GetComponent<Renderer>().material = GetMaterialFromPitch(_weakness[1]);
+        }
+        
+        
+        
+
+    }
+
+
+    private Material GetMaterialFromPitch(ESoundPitch p)
+    {
+        if (p.Equals(ESoundPitch.Low))
+            return redMat;
+        else
+            return greenMat;
+
+    }
+    
+    private Color GetColorFromPitch(ESoundPitch p)
+    {
+        if (p.Equals(ESoundPitch.Low))
+            return Color.red;
+        else
+            return Color.green;
+
     }
 
     #endregion
