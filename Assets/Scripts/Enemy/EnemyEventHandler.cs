@@ -12,7 +12,7 @@ public enum EEnemyType
 public class EnemyEventHandler : MonoBehaviour
 {
 
-    [SerializeField] private EEnemyType _type;
+    public EEnemyType _type;
     //check if player is within hearing raidus
     private bool _isPlayerNear;
     [SerializeField] private ESoundPitch[] _weakness = new ESoundPitch[3];
@@ -39,8 +39,10 @@ public class EnemyEventHandler : MonoBehaviour
         GameEventSystem.current.OnPlayerCastSpell += OnPlayerCastSpell;
         GameEventSystem.current.OnTerminalCastSpell += OnTerminalCastSpell;
         _stateMachine = GetComponentInParent<EnemyStateMachine>();
-        
         RandomizeWeakness();
+        
+        
+        
     }
 
 

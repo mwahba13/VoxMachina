@@ -15,21 +15,32 @@ public class Terminal : MonoBehaviour
 
     private void OnPlayerCastSpell(ESoundPitch[] list)
     {
-        
-        if(_isPlayerNear)
+
+        if (_isPlayerNear)
+        {
+            Debug.Log("Player Cast spell in range");
             GameEventSystem.current.TerminalCastSpell(list);
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             _isPlayerNear = true;
+            Debug.Log("Player is near");            
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player left area");
             _isPlayerNear = false;
+
+        }
     }
 
 

@@ -31,13 +31,24 @@ public class PlayerVoicebox : MonoBehaviour
     public float microphonePitch;
     public VoiceboxTuningParams tuningParams;
     public ESoundPitch lastSound;
+    
 
-    //UI ELEMENTS
-    [SerializeField] private GameObject spellcastUI;
-    [SerializeField] private Image spellcastScrollerImage;
-    [SerializeField] private Image firstSoundPanel;
-    [SerializeField] private Image secondSoundPanel;
-    [SerializeField] private Image thirdSoundPanel;
+
+    public Material redMat;
+    public Material greenMat;
+    public Material whiteMat;
+    
+    //for changing color/material of enemy weakness
+    [SerializeField] private GameObject _pitchScreen;
+    
+    [SerializeField] private GameObject _pitchMat1;
+    [SerializeField] private Light _pitchLight1;
+    
+    [SerializeField] private GameObject _pitchMat2;
+    [SerializeField] private Light _pitchLight2;
+    
+    [SerializeField] private GameObject _pitchMat3;
+    [SerializeField] private Light _pitchLight3;
     
     //these keep track of the sounds made during spellcasting - should be more accurate
     private List<ESoundPitch> firstSoundArray = new List<ESoundPitch>();
@@ -76,7 +87,6 @@ public class PlayerVoicebox : MonoBehaviour
 
         _spellTimer = 3.0f;
         
-        spellcastUI.SetActive(false);
         //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         
@@ -111,7 +121,7 @@ public class PlayerVoicebox : MonoBehaviour
             _spellTimer = 3.0f;
             
             //make UI visible
-            spellcastUI.SetActive(true);
+            //spellcastUI.SetActive(true);
             
         }
 
@@ -132,11 +142,11 @@ public class PlayerVoicebox : MonoBehaviour
             if (isRecording)
             {
                 //affect onscreen UI
-                Vector3 imageLocalPos = spellcastScrollerImage.rectTransform.localPosition;
                 if (lastSound.Equals(ESoundPitch.High))
-                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,400,imageLocalPos.z),Quaternion.identity);
-                else if(lastSound.Equals(ESoundPitch.Low))
-                    spellcastScrollerImage.rectTransform.SetPositionAndRotation(new Vector3(imageLocalPos.x,150,imageLocalPos.z),Quaternion.identity);
+                    _pitchScreen.GetComponent<Renderer>().material = greenMat;
+                else
+                    _pitchScreen.GetComponent<Renderer>().material = redMat;
+
 
 
                 ESoundPitch tempPitch;
@@ -148,7 +158,7 @@ public class PlayerVoicebox : MonoBehaviour
 
                     if (_spellTimer < 2.5f)
                     {
-                        ChangePanelColor(firstSoundPanel,tempPitch);
+                        ChangePanelColor(_pitchMat1,_pitchLight1,tempPitch);
                         soundArray[0] = tempPitch;
                     }
 
@@ -161,7 +171,7 @@ public class PlayerVoicebox : MonoBehaviour
                     if (_spellTimer < 1.5f)
                     {
                         soundArray[1] = tempPitch;
-                        ChangePanelColor(secondSoundPanel,tempPitch);
+                        ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
 
                     }
                 }
@@ -172,7 +182,7 @@ public class PlayerVoicebox : MonoBehaviour
                     if (_spellTimer < 0.5f)
                     {
                         soundArray[2] = tempPitch;
-                        ChangePanelColor(thirdSoundPanel,tempPitch);
+                        ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
 
                     }
                 }
@@ -196,7 +206,7 @@ public class PlayerVoicebox : MonoBehaviour
            // _spellcast.CastSpell(soundArray);
             GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
-            spellcastUI.SetActive(false);
+            //spellcastUI.SetActive(false);
             CleanupUI();
            // DeterminePitches();
         }
@@ -305,13 +315,22 @@ public class PlayerVoicebox : MonoBehaviour
     }
 
 
-    void ChangePanelColor(Image panelImage, ESoundPitch pitch)
+    void ChangePanelColor(GameObject obj,Light light, ESoundPitch pitch)
     {
         if (pitch.Equals(ESoundPitch.High))
-            panelImage.color = tuningParams.highPitchColor;
+        {
+            obj.GetComponent<Renderer>().material = greenMat;
+            light.color = Color.green;
+        }
         else
-            panelImage.color = tuningParams.lowPitchColor;
+        {
+            obj.GetComponent<Renderer>().material = redMat;
+            light.color = Color.red;
+        }
+
     }
+    
+
     
     ESoundPitch AnalyzeAudio()
     {
@@ -376,11 +395,16 @@ public class PlayerVoicebox : MonoBehaviour
         firstSoundArray.Clear();
         secondSoundArray.Clear();
         ThirdSoundArray.Clear();
+
+        _pitchScreen.GetComponent<Renderer>().material = whiteMat;
+        _pitchMat1.GetComponent<Renderer>().material = whiteMat;
+        _pitchMat2.GetComponent<Renderer>().material = whiteMat;
+        _pitchMat3.GetComponent<Renderer>().material = whiteMat;
         
-        firstSoundPanel.color = Color.white;
-        secondSoundPanel.color = Color.white;
-        thirdSoundPanel.color = Color.white;
-        
+        _pitchLight1.color = Color.yellow;
+        _pitchLight2.color = Color.yellow;
+        _pitchLight3.color = Color.yellow;
+
     }
 
     #endregion

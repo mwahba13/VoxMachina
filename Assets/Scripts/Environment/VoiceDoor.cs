@@ -12,12 +12,18 @@ public class VoiceDoor : MonoBehaviour
     
     private bool _playerIsNear;
     private bool _isDoorOpen;
+
+
+    private AudioSource _source;
+    public AudioClip openDoorClip;
+    public AudioClip closeDoorClip;
     
     // Start is called before the first frame update
     void Start()
     {
         GameEventSystem.current.OnPlayerCastSpell += OnPlayerCastSpell;
 
+        _source = GetComponent<AudioSource>();
         _animator = GetComponentInParent<Animator>();
     }
 
@@ -28,6 +34,7 @@ public class VoiceDoor : MonoBehaviour
         
         if (_playerIsNear && IsKeyMatched(list))
         {
+            _source.PlayOneShot(openDoorClip);
             _animator.SetTrigger("OpenDoor");
             _isDoorOpen = true;
         }
@@ -53,6 +60,7 @@ public class VoiceDoor : MonoBehaviour
 
             if (_isDoorOpen)
             {
+                _source.PlayOneShot(closeDoorClip);
                 _animator.ResetTrigger("OpenDoor");
                 _animator.SetTrigger("CloseDoor");
             }

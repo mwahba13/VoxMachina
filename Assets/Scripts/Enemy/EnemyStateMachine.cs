@@ -43,13 +43,15 @@ public class EnemyStateMachine : MonoBehaviour
     
     //Nav mesh agent
     private NavMeshAgent _navAgent;
+
+    private EnemyAudioManager _audioManager;
     
     // Start is called before the first frame update
     void Start()
     {
         _navAgent = GetComponent<NavMeshAgent>();
         _playerObj = GameObject.FindWithTag("Player");
-        
+        _audioManager = GetComponent<EnemyAudioManager>();
 
 
         
@@ -91,6 +93,9 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
                 
         }
+        
+        
+        
     }
 
 
@@ -98,7 +103,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void StateTransition(EEnemyState newState)
     {
         //if stunned, ignore state transition
-        if (_state.Equals(EEnemyState.Stunned))
+        if (_state.Equals(EEnemyState.Stunned) && !newState.Equals(EEnemyState.Wandering))
             return;
         
         if (newState.Equals(EEnemyState.Wandering))
@@ -109,6 +114,7 @@ public class EnemyStateMachine : MonoBehaviour
         
         else if (newState.Equals(EEnemyState.SeekingSound_Moving))
         {
+            _audioManager.PlayBark();
             _navAgent.SetDestination(_playerObj.transform.position);
         }
 
@@ -126,6 +132,7 @@ public class EnemyStateMachine : MonoBehaviour
         
         else if (newState.Equals(EEnemyState.Stunned))
         {
+            _audioManager.PlayPowerDown();
             _stunTimer = stunDuration;
             _navAgent.SetDestination(transform.position);
         }
@@ -136,9 +143,12 @@ public class EnemyStateMachine : MonoBehaviour
     private void StunnedStateBehavior()
     {
         _stunTimer -= Time.deltaTime;
-        
-        if(_stunTimer < 0.0f)
+
+        if (_stunTimer < 0.0f)
+        {
             StateTransition(EEnemyState.Wandering);
+            _audioManager.PlayBark();
+        }
     }
 
     private void WanderingStateBehavior()
@@ -146,6 +156,7 @@ public class EnemyStateMachine : MonoBehaviour
         //check if close to destination
         if (_navAgent.remainingDistance < _destinationBuffer)
         {
+            _audioManager.PlayMovingSound();
             _navAgent.SetDestination(GetRandomNavMeshPoint(_wanderDistance));
         }
     }
@@ -155,6 +166,7 @@ public class EnemyStateMachine : MonoBehaviour
         //check if close to destination
         if (_navAgent.remainingDistance < _destinationBuffer)
         {
+            _audioManager.PlayMovingSound();
             patrolPathIndex++;
             patrolPathIndex %= patrolPathNodes.Length;
             _navAgent.SetDestination(patrolPathNodes[patrolPathIndex].position);
@@ -171,6 +183,7 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (_navAgent.remainingDistance < _destinationBuffer)
         {
+            _audioManager.PlayMovingSound();
             //create a random patrol around this area
             _dynamicPatrolNodes[0] = (this.transform.position);
             _dynamicPatrolNodes[1] = (GetRandomNavMeshPoint(Random.Range(5.0f,10.0f),_dynamicPatrolNodes[0]));
@@ -189,6 +202,8 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (_navAgent.remainingDistance < _destinationBuffer)
         {
+            _audioManager.PlayMovingSound();
+
             _dynPatrolIndex++;
             _dynPatrolIndex %= _dynamicPatrolNodes.Length;
             _navAgent.SetDestination(_dynamicPatrolNodes[_dynPatrolIndex]);
