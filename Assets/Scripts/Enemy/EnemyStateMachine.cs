@@ -17,19 +17,21 @@ public enum EEnemyState
     SeekingSound_Patrolling,
     
     //Hunting sub tree
-    Hunting,
+    HuntingPlayer,
+    LostPlayer,
 }
 
 
 public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private EEnemyState _state;
+    private EEnemyState _initialState;
     [SerializeField] private float _destinationBuffer;      //how close it needs to be to dest to switch to next dest
     [SerializeField] private float _wanderDistance;
     [SerializeField] private float _huntingPlayerDistance;      //how clsoe player needs to be for enemy to be deadyl
     private GameObject _playerObj;
-    
-    
+
+    private int _seekEnemyPatrolCounter;
     //
     public Transform[] patrolPathNodes;
     private int patrolPathIndex;
@@ -54,7 +56,7 @@ public class EnemyStateMachine : MonoBehaviour
         _audioManager = GetComponent<EnemyAudioManager>();
 
 
-        
+        _initialState = _state;
         StateTransition(_state);
 
     }   
@@ -63,11 +65,11 @@ public class EnemyStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         //if player is very close to enemy then it starts hunting
         if((_playerObj.transform.position-transform.position).magnitude < _huntingPlayerDistance)
-            StateTransition(EEnemyState.Hunting);
-        */
+            StateTransition(EEnemyState.HuntingPlayer);
+        
         
         switch (_state)
         {
@@ -86,6 +88,12 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case EEnemyState.Stunned:
                 StunnedStateBehavior();
+                break;
+            case EEnemyState.HuntingPlayer:
+                HuntingPlayerBehavior();
+                break;
+            case EEnemyState.LostPlayer:
+                LostPlayerBehavior();
                 break;
             case EEnemyState.Idle:
                 break;
@@ -114,6 +122,7 @@ public class EnemyStateMachine : MonoBehaviour
         
         else if (newState.Equals(EEnemyState.SeekingSound_Moving))
         {
+            _seekEnemyPatrolCounter = 0;
             _audioManager.PlayBark();
             _navAgent.SetDestination(_playerObj.transform.position);
         }
@@ -201,6 +210,11 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void SeekingSoundPatrollingBehavior()
     {
+        
+        
+        if(_seekEnemyPatrolCounter == 3)
+            StateTransition(_initialState);
+        
         if (_navAgent.remainingDistance < _destinationBuffer)
         {
             _audioManager.PlayMovingSound();
@@ -208,6 +222,9 @@ public class EnemyStateMachine : MonoBehaviour
             _dynPatrolIndex++;
             _dynPatrolIndex %= _dynamicPatrolNodes.Length;
             _navAgent.SetDestination(_dynamicPatrolNodes[_dynPatrolIndex]);
+
+            if (_dynPatrolIndex == _dynamicPatrolNodes.Length - 1)
+                _seekEnemyPatrolCounter++;
         }
     }
 
@@ -217,7 +234,37 @@ public class EnemyStateMachine : MonoBehaviour
     
     #region HuntingPlayerStateTree
 
-    
+    private void HuntingPlayerBehavior()
+    {
+        //check if line of sight is broken
+        Vector3 dirToPlayer = _playerObj.transform.position - transform.position;
+
+        Ray ray = new Ray();
+        ray.origin = transform.position;
+        ray.direction = dirToPlayer;
+
+        RaycastHit hit;
+
+        Physics.Raycast(ray, out hit);
+
+        if (!hit.collider.gameObject.CompareTag("Player"))
+        {
+            StateTransition(EEnemyState.LostPlayer);
+        }
+        else
+        {
+            _navAgent.SetDestination(_playerObj.transform.position);
+        }
+    }
+
+    private void LostPlayerBehavior()
+    {
+        //if we lose sight of player, go to last position then start a seeking player patrol
+        if (_navAgent.remainingDistance < _destinationBuffer)
+        {
+            StateTransition(EEnemyState.SeekingSound_Moving);
+        }
+    }
 
     #endregion
 
