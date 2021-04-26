@@ -9,12 +9,15 @@ public class VoiceDoor : MonoBehaviour
 
 
     private Animator _animator;
+    private AudioSource _source;
+    private Light _light;
+    
     
     private bool _playerIsNear;
     private bool _isDoorOpen;
 
 
-    private AudioSource _source;
+    
     public AudioClip openDoorClip;
     public AudioClip closeDoorClip;
     public AudioClip keyAcceptClip;
@@ -27,6 +30,8 @@ public class VoiceDoor : MonoBehaviour
 
         _source = GetComponent<AudioSource>();
         _animator = GetComponentInParent<Animator>();
+        _light = GetComponentInChildren<Light>();
+        _light.enabled = false;
     }
 
 
@@ -53,6 +58,7 @@ public class VoiceDoor : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
+            _light.enabled = true;
             _playerIsNear = true;
 
         }
@@ -64,6 +70,7 @@ public class VoiceDoor : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _playerIsNear = false;
+            _light.enabled = false;
 
             if (_isDoorOpen)
             {

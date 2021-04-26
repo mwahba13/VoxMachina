@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\BossAudioTrigger.cs" />
+     <Compile Include="Assets\ExitDoor.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraFlythrough.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraOrbit.cs" />

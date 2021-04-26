@@ -25,7 +25,7 @@ public class PlayerVoicebox : MonoBehaviour
 
     //control spellcasting with mouse not voice
     public bool mouseDebugMode;
-
+    
 
     public float cooldownDuration;
     private float _cooldownTimer;
@@ -79,8 +79,10 @@ public class PlayerVoicebox : MonoBehaviour
     
     private AudioSource _audioSource;
     private PlayerAudioManager _audioManager;
-    private Animator _animator;
-
+    
+    public Animator _animator;
+    
+    
     #endregion
     
 
@@ -95,7 +97,6 @@ public class PlayerVoicebox : MonoBehaviour
         //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         _audioManager = GetComponentInChildren<PlayerAudioManager>();
-        _animator = GetComponentInChildren<Animator>();
         InitMicrophone();
         
         _audioSource.Play();

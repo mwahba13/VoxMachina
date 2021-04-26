@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
     public GameObject pauseMenuObj;
     public GameObject deathMenuObj;
+
+
+    private FirstPersonController _fpsController;
     private Animator _animator;
     private PlayerAudioManager _audioManager;
 
@@ -24,6 +28,9 @@ public class PlayerController : MonoBehaviour
         deathMenuObj.SetActive(false);
         _animator = GetComponent<Animator>();
         _audioManager = GetComponentInChildren<PlayerAudioManager>();
+        _fpsController = GetComponent<FirstPersonController>();
+
+        _fpsController.enabled = true;
     }
 
     // Update is called once per frame
@@ -39,9 +46,11 @@ public class PlayerController : MonoBehaviour
     
     private void OnPlayerDeath()
     {
+
+        _fpsController.enabled = false;
         isDead = true;
         deathMenuObj.SetActive(true);
-        
+        pauseMenuObj.SetActive(false);
         
         
     }
@@ -77,12 +86,14 @@ public class PlayerController : MonoBehaviour
             {
                 if (Time.timeScale == 1)
                 {
+                    _fpsController.enabled = false;
                     //Cursor.visible = true;
                     Time.timeScale = 0;
                     pauseMenuObj.SetActive(true);
                 }
                 else
                 {
+                    _fpsController.enabled = true;
                     Time.timeScale = 1;
                     //Cursor.visible = false;
 
@@ -108,6 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+                _fpsController.enabled = true;
                 health = 100;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
