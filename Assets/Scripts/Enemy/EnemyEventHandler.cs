@@ -7,6 +7,7 @@ public enum EEnemyType
     Small,
     Med,
     Large,
+    
 }
 
 public class EnemyEventHandler : MonoBehaviour
@@ -139,8 +140,6 @@ public class EnemyEventHandler : MonoBehaviour
         
         for (int i = 0; i < numToAdd; i++)
         {
-            Random.Range(0, 2);
-
             _weakness[i] = randPitch[Random.Range(0, 2)];
         }
         
