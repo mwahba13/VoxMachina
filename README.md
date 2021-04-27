@@ -1,5 +1,6 @@
 # VoxMachina
 Survival horror game made in 72 hours for Ludum Dare 48 Game Jam.
+Theme: Deeper and Deeper
 
 ![cover](Images/VoxMachineCover.png)
 
