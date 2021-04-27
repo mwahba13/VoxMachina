@@ -77,7 +77,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Safe...For Now..
+  m_Text: Death is not the end...
 --- !u!1 &383227589
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,8 +104,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383227589}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 260.01703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 615703956}
@@ -114,7 +114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -906.9785, y: -492.73505}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &383227593
@@ -305,10 +305,10 @@ RectTransform:
   m_Father: {fileID: 383227590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &615703958
 CanvasRenderer:
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.68235296}
+  m_Color: {r: 0.6037736, g: 0.5952296, b: 0.5952296, a: 0.68235296}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -424,7 +424,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press 'ESC' to Return to Game
+  m_Text: 
 --- !u!1 &1122635660
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Press ''Q'' to Quit to Menu
+  m_Text: 'Press ''Q'' to Quit the Game
 
 '
 --- !u!1 &2159436908904328309
@@ -974,7 +974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3966033167584791389}
   m_LocalRotation: {x: 1.6500593e-15, y: 0.000000037748954, z: 1, w: 0.00000004371139}
-  m_LocalPosition: {x: -0, y: -0.50341165, z: 0.12525612}
+  m_LocalPosition: {x: 0.026, y: -0.50341165, z: 0.178}
   m_LocalScale: {x: -9.830534, y: -9.830534, z: -0.39844272}
   m_Children: []
   m_Father: {fileID: 5206082882929134496}
@@ -1463,7 +1463,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4901802515760203825}
   m_LocalRotation: {x: 1.6500593e-15, y: 0.000000037748954, z: 1, w: 0.00000004371139}
-  m_LocalPosition: {x: -0.43360418, y: -0.5002503, z: 0.12525612}
+  m_LocalPosition: {x: -0.454, y: -0.5002503, z: 0.162}
   m_LocalScale: {x: -9.830534, y: -9.830534, z: -0.39844272}
   m_Children: []
   m_Father: {fileID: 5206082882929134496}
@@ -1613,7 +1613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8624994342317092088
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   ditherThreshold: 1
   ditherIntensity: 5
   maxDarkness: 20
-  subtractFade: 6
+  subtractFade: 2
   favorRed: 1
   worldSpaceSnapping: 1
   postProcessing: 1
@@ -1921,15 +1921,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ab30eccdcf5d2774aaa9c0d4dee9998a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 190
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -2613,6 +2613,7 @@ MonoBehaviour:
   _pitchLight2: {fileID: 2428178838169809249}
   _pitchMat3: {fileID: 4901802515760203825}
   _pitchLight3: {fileID: 3754018987549026660}
+  _animator: {fileID: 2100916425}
 --- !u!114 &4541446031676896160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2678,7 +2679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1814000495896908473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2785,7 +2786,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7595739358774945364}
   m_LocalRotation: {x: 1.6500593e-15, y: 0.000000037748954, z: 1, w: 0.00000004371139}
-  m_LocalPosition: {x: 0.43774596, y: -0.5003874, z: 0.12525612}
+  m_LocalPosition: {x: 0.439, y: -0.5003874, z: 0.211}
   m_LocalScale: {x: -9.830534, y: -9.830534, z: -0.39844272}
   m_Children: []
   m_Father: {fileID: 5206082882929134496}

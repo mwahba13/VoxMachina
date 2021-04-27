@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitDoor : MonoBehaviour
+public class TerminalFace : MonoBehaviour
 {
-    public Material _mat;
-
-    private Vector2 offset = new Vector2();
+    
+    
     private Renderer _rend;
+    private float scrollSpeed = 0.5f;
+
+    public bool _isPlayerInZone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +20,11 @@ public class ExitDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        offset.x = Mathf.Sin(Time.deltaTime*3.0f);
-        offset.y = Mathf.Sin(Time.deltaTime*3.0f);
-        
-        _rend.material.SetTextureOffset("_MainTex",offset);
+        if (_isPlayerInZone)
+        {
+            float offset = Time.time * scrollSpeed;
+            _rend.material.SetTextureOffset("_MainTex",new Vector2(0,offset));
+        }
+
     }
 }

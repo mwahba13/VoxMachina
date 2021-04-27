@@ -50,8 +50,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\BossAudioTrigger.cs" />
-     <Compile Include="Assets\ExitDoor.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraFlythrough.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\PSXEffects\Example\Scripts\CameraOrbit.cs" />
@@ -63,14 +61,17 @@
      <Compile Include="Assets\PSXEffects\Example\Scripts\VertexColors.cs" />
      <Compile Include="Assets\PSXEffects\Scripts\PSXEffects.cs" />
      <Compile Include="Assets\Scripts\Enemy\BossAudioManager.cs" />
+     <Compile Include="Assets\Scripts\Enemy\BossAudioTrigger.cs" />
      <Compile Include="Assets\Scripts\Enemy\BossEventHandler.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyAudioManager.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyEventHandler.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyStateMachine.cs" />
      <Compile Include="Assets\Scripts\Environment\AudioTriggerVolume.cs" />
+     <Compile Include="Assets\Scripts\Environment\ExitDoor.cs" />
      <Compile Include="Assets\Scripts\Environment\RandomWall.cs" />
      <Compile Include="Assets\Scripts\Environment\Terminal.cs" />
+     <Compile Include="Assets\Scripts\Environment\TerminalFace.cs" />
      <Compile Include="Assets\Scripts\Environment\UITrigger.cs" />
      <Compile Include="Assets\Scripts\Environment\VoiceDoor.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAudioManager.cs" />

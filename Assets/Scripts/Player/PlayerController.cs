@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q) && Time.timeScale == 0)
             {
-                SceneManager.LoadScene("TitleScreen");
+                Application.Quit();
             }
         }
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                SceneManager.LoadScene("TitleScreen");
+                Application.Quit();
             }
         }
 

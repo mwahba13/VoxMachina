@@ -5,19 +5,22 @@ using UnityEngine;
 
 public class Terminal : MonoBehaviour
 {
+    public Light light;
+    
     private bool _isPlayerNear = false;
 
     private AudioSource _source;
-
+    private TerminalFace _face;
     private Collider _collider;
     
     // Start is called before the first frame update
     void Start()
     {
         GameEventSystem.current.OnPlayerCastSpell += OnPlayerCastSpell;
-
+        light.enabled = false;
         _collider = GetComponent<Collider>();
         _source = GetComponent<AudioSource>();
+        _face = GetComponentInChildren<TerminalFace>();
     }
 
     private void OnPlayerCastSpell(ESoundPitch[] list)
@@ -36,6 +39,8 @@ public class Terminal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            light.enabled = true;
+            _face._isPlayerInZone = true;
             _isPlayerNear = true;
         }
     }
@@ -44,6 +49,8 @@ public class Terminal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            light.enabled = false;
+            _face._isPlayerInZone = false;
             _isPlayerNear = false;
 
         }

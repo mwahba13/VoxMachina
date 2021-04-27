@@ -15,26 +15,30 @@ public class BossEventHandler : MonoBehaviour
     [SerializeField] private ESoundPitch[] _firstWeakness;
     [SerializeField] private ESoundPitch[] _secondWeakness;
     [SerializeField] private ESoundPitch[] _thirdWeakness;
+    
     private int _health = 3;
+    private bool _isDead = false;
     private static readonly int IsDead = Animator.StringToHash("isDead");
 
     // Start is called before the first frame update
     void Start()
     {
         GameEventSystem.current.OnTerminalCastSpell += OnTerminalCastSpell;
+        _animator = GetComponent<Animator>();
+        _audioManager = GetComponent<BossAudioManager>();
     }
 
     private void OnTerminalCastSpell(ESoundPitch[] list)
     {
-        if(list == _firstWeakness && _health == 3)
+        if(CompareList(list) && _health == 3)
             OnTakeDamage();
         
         
-        else if(list == _secondWeakness && _health == 2)
+        else if(CompareList(list) && _health == 2)
             OnTakeDamage();
         
         
-        else if(list == _thirdWeakness && _health == 1)
+        else if(CompareList(list) && _health == 1)
             OnBossKilled();
     }
 
@@ -47,6 +51,7 @@ public class BossEventHandler : MonoBehaviour
 
     private void OnTakeDamage()
     {
+        Debug.Log("Damage Taken");
         _audioManager.PlayAIHitClip();
 
         _currentSequence++;
@@ -63,10 +68,34 @@ public class BossEventHandler : MonoBehaviour
     {
         if(_health == 0)
             OnBossKilled();
+        
+        if(_isDead)
+            if(Input.GetKeyDown(KeyCode.Q))
+                Application.Quit();
+    }
+
+    private bool CompareList(ESoundPitch[] list)
+    {
+        ESoundPitch[] currentWeakness = _firstWeakness;
+        if (_currentSequence == 0)
+            currentWeakness = _firstWeakness;
+        else if (_currentSequence == 1)
+            currentWeakness = _secondWeakness;
+        else if (_currentSequence == 2)
+            currentWeakness = _thirdWeakness;
+        
+        for (int i = 0; i < 3; i++)
+        {
+            if (list[i] != currentWeakness[i])
+                return false;
+        }
+
+        return true;
     }
 
     private void OnBossKilled()
     {
+        _isDead = true;
         _animator.SetBool("IsDead",true);
         _audioManager.PlayAIDestroyedClip();
     }

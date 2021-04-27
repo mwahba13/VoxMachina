@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         CreditsPane.SetActive(false);
+        Cursor.visible = true;
+        
     }
 
     public void OnPlayButtonPress()

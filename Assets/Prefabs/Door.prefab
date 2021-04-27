@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916360180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.506, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 8467213898080236979}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 774921d3e14df0947a6d3f0bdb90fc2c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,7 +118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2360541317364159631}
   m_LocalRotation: {x: 0.68888426, y: -0.15949453, z: -0.15949453, w: 0.68888426}
-  m_LocalPosition: {x: 3.6099908, y: 1.877, z: 0}
+  m_LocalPosition: {x: 3.6099908, y: 1.993, z: 0}
   m_LocalScale: {x: 11.205359, y: 0.50599605, z: 1}
   m_Children: []
   m_Father: {fileID: 8467213898080236979}
@@ -232,8 +232,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 50, y: 3, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 76.59197, y: 2.9999998, z: 12.018518}
+  m_Center: {x: -13.295973, y: 0, z: 0.97160625}
 --- !u!95 &307246118
 Animator:
   serializedVersion: 3
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3b1940cdbd9674fbe205bce92e8aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _voiceKey: 000000000000000000000000
+  _voiceKey: 010000000000000001000000
   openDoorClip: {fileID: 8300000, guid: 155e197bdd3e8854c93b72ad99450e53, type: 3}
   closeDoorClip: {fileID: 8300000, guid: 1160efcb4b340cc408083fe2ed7f9d2b, type: 3}
   keyAcceptClip: {fileID: 8300000, guid: c8137b3444e96c442a19d60d7731263a, type: 3}

@@ -97,7 +97,7 @@ public class PlayerVoicebox : MonoBehaviour
         //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         _audioManager = GetComponentInChildren<PlayerAudioManager>();
-        InitMicrophone();
+       // InitMicrophone();
         
         _audioSource.Play();
         
@@ -121,7 +121,7 @@ public class PlayerVoicebox : MonoBehaviour
     {
     
         //if fire button pressed
-        if ((CrossPlatformInputManager.GetAxis("Fire1") == 1 || CrossPlatformInputManager.GetAxis("Fire2")==1) 
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) 
             && !isRecording 
             && _cooldownTimer < 0.0f)
         {
@@ -134,18 +134,15 @@ public class PlayerVoicebox : MonoBehaviour
             
         }
 
-        if (_audioSource.isPlaying)
+        if (true)
         {
-            if(!mouseDebugMode)
-                lastSound = AnalyzeAudio();
-            else
-            {
-                if (isRecording && CrossPlatformInputManager.GetAxis("Fire1") == 1)
-                    lastSound = ESoundPitch.Low;
-                else if(isRecording && CrossPlatformInputManager.GetAxis("Fire2") == 1)
-                    lastSound = ESoundPitch.High;
+
+            if (isRecording && Input.GetMouseButtonDown(0))
+                lastSound = ESoundPitch.Low;
+            else if(isRecording && Input.GetMouseButtonDown(1))
+                lastSound = ESoundPitch.High;
                 
-            }
+            
             
             //check if sound was made and add to library
 

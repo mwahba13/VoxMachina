@@ -16,7 +16,6 @@ public class VoiceDoor : MonoBehaviour
     private bool _playerIsNear;
     private bool _isDoorOpen;
 
-
     
     public AudioClip openDoorClip;
     public AudioClip closeDoorClip;
@@ -61,7 +60,14 @@ public class VoiceDoor : MonoBehaviour
             _light.enabled = true;
             _playerIsNear = true;
 
+            if (_isDoorOpen)
+            {
+                _animator.SetTrigger("OpenDoor");
+            }
+
         }
+        
+        
     }
 
 
