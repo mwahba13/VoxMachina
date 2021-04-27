@@ -5314,7 +5314,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sound - Christopher William McEwan
+  m_Text: Sound - Christopher William McEwen
 --- !u!222 &2124740282
 CanvasRenderer:
   m_ObjectHideFlags: 0

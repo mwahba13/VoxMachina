@@ -78,6 +78,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerSpellcast.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerVoicebox.cs" />
+     <Compile Include="Assets\Scripts\ScriptableObjs\PlayerSettings.cs" />
      <Compile Include="Assets\Scripts\ScriptableObjs\VoiceboxTuningParams.cs" />
      <Compile Include="Assets\Scripts\Spells\Spell.cs" />
      <Compile Include="Assets\Scripts\Systems\GameEventSystem.cs" />
