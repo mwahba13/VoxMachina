@@ -3836,6 +3836,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3421358813976483579, guid: 2e37668ad2ef7ad44bc0401a18531433,
         type: 3}
+      propertyPath: DrawPathInEditor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421358813976483579, guid: 2e37668ad2ef7ad44bc0401a18531433,
+        type: 3}
       propertyPath: patrolPathNodes.Array.size
       value: 2
       objectReference: {fileID: 0}

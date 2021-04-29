@@ -155,7 +155,8 @@ public class PlayerVoicebox : MonoBehaviour
 
 
                 ESoundPitch tempPitch;
-                
+
+
                 //add sound to appropriate array
                 if (_spellTimer > 2.0f)
                 {
@@ -164,13 +165,16 @@ public class PlayerVoicebox : MonoBehaviour
 
                     if (_spellTimer < 2.5f)
                     {
-                        ChangePanelColor(_pitchMat1,_pitchLight1,tempPitch);
+
+                        ChangePanelColor(_pitchMat1, _pitchLight1, tempPitch);
                         soundArray[0] = tempPitch;
+                        
+
                     }
 
                 }
 
-                else if (_spellTimer > 1.0f)
+                 if (_spellTimer > 1.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, secondSoundArray);
                     SetAnimation(tempPitch);
@@ -178,12 +182,15 @@ public class PlayerVoicebox : MonoBehaviour
                     if (_spellTimer < 1.5f)
                     {
                         soundArray[1] = tempPitch;
-                        ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
 
+                        ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
 
                     }
                 }
-                else if (_spellTimer > 0.0f)
+
+
+                 
+                if (_spellTimer > 0.0f)
                 {
                     tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
                     SetAnimation(tempPitch);
@@ -191,8 +198,9 @@ public class PlayerVoicebox : MonoBehaviour
                     if (_spellTimer < 0.5f)
                     {
                         soundArray[2] = tempPitch;
-                        ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
 
+
+                        ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
 
                     }
                 }
