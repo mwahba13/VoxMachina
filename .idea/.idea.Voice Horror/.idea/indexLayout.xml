@@ -17,6 +17,7 @@
       <Path>.git</Path>
       <Path>.idea</Path>
       <Path>Builds</Path>
+      <Path>Images</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Temp</Path>

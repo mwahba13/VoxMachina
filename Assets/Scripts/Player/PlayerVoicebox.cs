@@ -5,8 +5,6 @@ using System.Text;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows.Speech;
-using UnityStandardAssets.CrossPlatformInput;
 
 public enum ESoundPitch
 {
@@ -103,7 +101,7 @@ public class PlayerVoicebox : MonoBehaviour
         
     }
     
-
+/*
     void InitMicrophone()
     {
         
@@ -116,7 +114,7 @@ public class PlayerVoicebox : MonoBehaviour
         }
         
     }
-
+*/
     void Update()
     {
     
