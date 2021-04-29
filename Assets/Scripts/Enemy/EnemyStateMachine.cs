@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 
 public enum EEnemyState
@@ -33,6 +35,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private int _seekEnemyPatrolCounter;
     //
+    public bool DrawPathInEditor;
     public Transform[] patrolPathNodes;
     private int patrolPathIndex;
     
@@ -292,6 +295,22 @@ public class EnemyStateMachine : MonoBehaviour
         NavMeshHit hit;
         NavMesh.SamplePosition(randDir, out hit, radius, 1);
         return hit.position;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        if (DrawPathInEditor && patrolPathNodes.Length != 0)
+        {
+            for (int i = 0; i < patrolPathNodes.Length; i++)
+            {
+                if(i == patrolPathNodes.Length-1)
+                    Gizmos.DrawLine(patrolPathNodes[i].position,patrolPathNodes[0].position);
+                else 
+                    Gizmos.DrawLine(patrolPathNodes[i].position,patrolPathNodes[i+1].position);
+                    
+            }
+        }
     }
 
     #endregion
