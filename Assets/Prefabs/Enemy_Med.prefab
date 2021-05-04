@@ -255,10 +255,10 @@ MonoBehaviour:
   _destinationBuffer: 1
   _wanderDistance: 10
   _huntingPlayerDistance: 3
+  DrawPathInEditor: 0
   patrolPathNodes:
   - {fileID: 0}
   - {fileID: 0}
-  _stunTimer: 0
   stunDuration: 5
 --- !u!195 &4168952270109517581
 NavMeshAgent:
@@ -644,7 +644,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 5, z: 20}
+  m_Size: {x: 50, y: 10, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4168952270421565203
 MonoBehaviour:

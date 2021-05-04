@@ -43,7 +43,7 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3[] _dynamicPatrolNodes = new Vector3[4];
     private int _dynPatrolIndex;
 
-    [SerializeField] private float _stunTimer;
+    private float _stunTimer;
     public float stunDuration;
     
     //Nav mesh agent

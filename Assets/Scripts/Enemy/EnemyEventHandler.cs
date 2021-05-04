@@ -50,15 +50,23 @@ public class EnemyEventHandler : MonoBehaviour
     private void OnPlayerCastSpell(ESoundPitch[] list)
     {
         //if player is within hearing radius and makes sensitive sound
-        if (_isPlayerNear)
+        if (!_isPlayerNear)
         {
             _stateMachine.StateTransition(EEnemyState.SeekingSound_Moving);   
+        }
+        else if (IsTargeted(list) && !_type.Equals(EEnemyType.Large))
+        {
+            _stateMachine.StateTransition(EEnemyState.Stunned);
         }
     }
 
     private void OnTerminalCastSpell(ESoundPitch[] list)
     {
-        if (IsTargetedByTerminal(list))
+        
+        if(IsTargeted(list) && _type.Equals(EEnemyType.Large))
+            _stateMachine.StateTransition(EEnemyState.Stunned);
+        /*
+        if (IsTargeted(list))
         {
             _stateMachine.StateTransition(EEnemyState.Stunned);
         }
@@ -66,6 +74,7 @@ public class EnemyEventHandler : MonoBehaviour
         {
             _stateMachine.StateTransition(EEnemyState.SeekingSound_Moving);
         }
+        */
     }
 
 
@@ -94,7 +103,7 @@ public class EnemyEventHandler : MonoBehaviour
 
     #region Utilities
 
-    private bool IsTargetedByTerminal(ESoundPitch[] list)
+    private bool IsTargeted(ESoundPitch[] list)
     {
         if (_type.Equals(EEnemyType.Small))
         {
