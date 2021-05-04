@@ -2430,6 +2430,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 528d2aeaf31be0e4e8d38f9e26672532, type: 3}
+--- !u!82 &1134084892 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2100916426, guid: acbd073a9d536fb429f4ff055ee94132,
+    type: 3}
+  m_PrefabInstance: {fileID: 5759723876178696705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1158370631
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,6 +2875,12 @@ Transform:
   m_Father: {fileID: 1219663239}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1438721429 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4192437815682296565, guid: acbd073a9d536fb429f4ff055ee94132,
+    type: 3}
+  m_PrefabInstance: {fileID: 5759723876178696705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1450944072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3833,6 +3845,11 @@ PrefabInstance:
         type: 3}
       propertyPath: stunDuration
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421358813976483579, guid: 2e37668ad2ef7ad44bc0401a18531433,
+        type: 3}
+      propertyPath: DrawPathInEditor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3421358813976483579, guid: 2e37668ad2ef7ad44bc0401a18531433,
         type: 3}
@@ -5028,6 +5045,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1196273281}
     m_Modifications:
+    - target: {fileID: 2038773081, guid: acbd073a9d536fb429f4ff055ee94132, type: 3}
+      propertyPath: threeHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c0cf65e7615f3cd4686b61b8c0f2aead, type: 3}
     - target: {fileID: 2038773082, guid: acbd073a9d536fb429f4ff055ee94132, type: 3}
       propertyPath: Loop
       value: 0
@@ -5040,6 +5061,16 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5759723874976753391, guid: acbd073a9d536fb429f4ff055ee94132,
+        type: 3}
+      propertyPath: _particleAnimator
+      value: 
+      objectReference: {fileID: 1438721429}
+    - target: {fileID: 5759723874976753391, guid: acbd073a9d536fb429f4ff055ee94132,
+        type: 3}
+      propertyPath: _soundGunAudioSource
+      value: 
+      objectReference: {fileID: 1134084892}
     - target: {fileID: 5759723876127487066, guid: acbd073a9d536fb429f4ff055ee94132,
         type: 3}
       propertyPath: m_Name
