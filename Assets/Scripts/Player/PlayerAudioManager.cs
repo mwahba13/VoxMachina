@@ -11,6 +11,7 @@ public class PlayerAudioManager : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip successSound;
     public AudioClip playerhitSound;
+    public AudioClip threeHitSound;
     
     
     // Start is called before the first frame update
@@ -23,10 +24,19 @@ public class PlayerAudioManager : MonoBehaviour
         _source = GetComponent<AudioSource>();
     }
 
+    
+    
     public void PlayTargetHitClip(){ _source.PlayOneShot(hitSound);}
     
     public void PlayTargetSuccessClip(){_source.PlayOneShot(successSound);}
     
     public void PlayPlayerHitClip() {_source.PlayOneShot(playerhitSound);}
-    
+
+    public void PlayThreeHitClip()
+    {
+        if(!_source.isPlaying)
+            _source.PlayOneShot(threeHitSound);
+        
+        
+    }
 }

@@ -79,6 +79,7 @@ public class PlayerVoicebox : MonoBehaviour
     private PlayerAudioManager _audioManager;
     
     public Animator _animator;
+    public Animator _particleAnimator;
     
     
     #endregion
@@ -132,91 +133,78 @@ public class PlayerVoicebox : MonoBehaviour
             
         }
 
-        if (true)
+
+ 
+
+        if (isRecording && Input.GetMouseButtonDown(0))
+            lastSound = ESoundPitch.Low;
+        else if(isRecording && Input.GetMouseButtonDown(1))
+            lastSound = ESoundPitch.High;
+            
+        
+        
+        //check if sound was made and add to library
+
+        if (isRecording)
         {
+            //affect onscreen UI
+            if (lastSound.Equals(ESoundPitch.High))
+                _pitchScreen.GetComponent<Renderer>().material = greenMat;
+            else
+                _pitchScreen.GetComponent<Renderer>().material = redMat;
 
-            if (isRecording && Input.GetMouseButtonDown(0))
-                lastSound = ESoundPitch.Low;
-            else if(isRecording && Input.GetMouseButtonDown(1))
-                lastSound = ESoundPitch.High;
-                
-            
-            
-            //check if sound was made and add to library
 
-            if (isRecording)
+
+            ESoundPitch tempPitch;
+
+            _audioManager.PlayThreeHitClip();
+            //add sound to appropriate array
+            if (_spellTimer > 2.0f)
             {
-                //affect onscreen UI
-                if (lastSound.Equals(ESoundPitch.High))
-                    _pitchScreen.GetComponent<Renderer>().material = greenMat;
-                else
-                    _pitchScreen.GetComponent<Renderer>().material = redMat;
+                
+                tempPitch = AddPitchToArray(lastSound, firstSoundArray);
+                SetAnimation(tempPitch);
+                ChangePanelColor(_pitchMat1, _pitchLight1, tempPitch);
 
-
-
-                ESoundPitch tempPitch;
-
-
-                //add sound to appropriate array
-                if (_spellTimer > 2.0f)
+                if (_spellTimer < 2.5f)
                 {
-                    tempPitch = AddPitchToArray(lastSound, firstSoundArray);
-                    SetAnimation(tempPitch);
-
-                    if (_spellTimer < 2.5f)
-                    {
-
-                        ChangePanelColor(_pitchMat1, _pitchLight1, tempPitch);
-                        soundArray[0] = tempPitch;
-                        
-
-                    }
-
-                }
-
-                 if (_spellTimer > 1.0f)
-                {
-                    tempPitch = AddPitchToArray(lastSound, secondSoundArray);
-                    SetAnimation(tempPitch);
-
-                    if (_spellTimer < 1.5f)
-                    {
-                        soundArray[1] = tempPitch;
-
-                        ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
-
-                    }
-                }
-
-
-                 
-                if (_spellTimer > 0.0f)
-                {
-                    tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
-                    SetAnimation(tempPitch);
-
-                    if (_spellTimer < 0.5f)
-                    {
-                        soundArray[2] = tempPitch;
-
-
-                        ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
-
-                    }
+                    soundArray[0] = tempPitch;
                 }
 
             }
 
+             if (_spellTimer < 1.9f)
+            {
+                tempPitch = AddPitchToArray(lastSound, secondSoundArray);
+                ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
+                SetAnimation(tempPitch);
+
+                if (_spellTimer < 1.5f)
+                {
+                    soundArray[1] = tempPitch;
+                }
+            }
+
+
+             
+            if (_spellTimer < 0.9f)
+            {
+                tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
+                ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
+                SetAnimation(tempPitch);
+
+                if (_spellTimer < 0.5f)
+                {
+                    soundArray[2] = tempPitch;
+                }
+            }
+
+        }
+
                 
            
-        }
-        else
-        {
-            //InitMicrophone();
-            //Debug.Log("Play it again sam");
-            //_audioSource.clip = Microphone.Start(_microphoneName, true, 10,44100);
-            _audioSource.Play();
-        }
+        
+
         
         _cooldownTimer -= Time.deltaTime;
         _animator.SetFloat("cooldownTimer",_cooldownTimer);
@@ -230,6 +218,7 @@ public class PlayerVoicebox : MonoBehaviour
             GameEventSystem.current.PlayerCastSpell(soundArray);
             isRecording = false;
             _animator.SetBool("isRecording",false);
+            _particleAnimator.SetTrigger("Send");
             //spellcastUI.SetActive(false);
             CleanupUI();
            // DeterminePitches();
@@ -328,9 +317,9 @@ public class PlayerVoicebox : MonoBehaviour
             thirdPitch = ESoundPitch.Low;
         
         
-        Debug.Log("First Pitch: " + firstPitch);
-        Debug.Log("Second Pitch: " + secondPitch);
-        Debug.Log("Third Pitch: " + thirdPitch);
+       // Debug.Log("First Pitch: " + firstPitch);
+      //  Debug.Log("Second Pitch: " + secondPitch);
+       // Debug.Log("Third Pitch: " + thirdPitch);
         
         
         
@@ -357,9 +346,15 @@ public class PlayerVoicebox : MonoBehaviour
     void SetAnimation(ESoundPitch pit)
     {
         if (pit.Equals(ESoundPitch.High))
+        {
             _animator.SetBool("isHigh",true);
-        else 
+            _particleAnimator.SetTrigger("GreenSound");            
+        }
+        else
+        {
             _animator.SetBool("isHigh",false);
+            _particleAnimator.SetTrigger("RedSound");            
+        }
     }
     
     
