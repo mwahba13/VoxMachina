@@ -305,8 +305,12 @@ MonoBehaviour:
   _wanderDistance: 10
   _huntingPlayerDistance: 3
   patrolPathNodes: []
+<<<<<<< Updated upstream
   _stunTimer: 0
   stunDuration: 5
+=======
+  stunDuration: 8
+>>>>>>> Stashed changes
 --- !u!195 &3421358813976483578
 NavMeshAgent:
   m_ObjectHideFlags: 0
