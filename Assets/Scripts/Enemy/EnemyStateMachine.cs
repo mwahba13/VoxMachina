@@ -43,13 +43,15 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3[] _dynamicPatrolNodes = new Vector3[4];
     private int _dynPatrolIndex;
 
-    [SerializeField] private float _stunTimer;
+    private float _stunTimer;
     public float stunDuration;
     
     //Nav mesh agent
     private NavMeshAgent _navAgent;
 
     private EnemyAudioManager _audioManager;
+
+    private Animator _animator;
     
     // Start is called before the first frame update
     void Start()
@@ -57,7 +59,7 @@ public class EnemyStateMachine : MonoBehaviour
         _navAgent = GetComponent<NavMeshAgent>();
         _playerObj = GameObject.FindWithTag("Player");
         _audioManager = GetComponent<EnemyAudioManager>();
-
+        _animator = GetComponentInChildren<Animator>();
 
         _initialState = _state;
         StateTransition(_state);
@@ -156,7 +158,7 @@ public class EnemyStateMachine : MonoBehaviour
     private void StunnedStateBehavior()
     {
         _stunTimer -= Time.deltaTime;
-
+        _animator.SetFloat("stunTimer",_stunTimer);
         if (_stunTimer < 0.0f)
         {
             StateTransition(EEnemyState.Wandering);

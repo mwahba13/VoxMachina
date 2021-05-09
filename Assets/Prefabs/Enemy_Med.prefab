@@ -259,7 +259,6 @@ MonoBehaviour:
   patrolPathNodes:
   - {fileID: 0}
   - {fileID: 0}
-  _stunTimer: 0
   stunDuration: 5
 --- !u!195 &4168952270109517581
 NavMeshAgent:
@@ -613,6 +612,7 @@ GameObject:
   - component: {fileID: 4168952270421565202}
   - component: {fileID: 4168952270421565204}
   - component: {fileID: 4168952270421565203}
+  - component: {fileID: 7015998738548604155}
   m_Layer: 0
   m_Name: EventListener
   m_TagString: Untagged
@@ -645,7 +645,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 5, z: 20}
+  m_Size: {x: 50, y: 10, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4168952270421565203
 MonoBehaviour:
@@ -669,6 +669,25 @@ MonoBehaviour:
   _weakspotLight2: {fileID: 8878743450433737072}
   _weakspotMat3: {fileID: 0}
   _weakspotLight3: {fileID: 0}
+--- !u!95 &7015998738548604155
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168952270421565201}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf5a7659c9400974f9a4f38e59cb26cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4466667623925554301
 GameObject:
   m_ObjectHideFlags: 0
