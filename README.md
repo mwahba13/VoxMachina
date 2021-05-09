@@ -2,6 +2,8 @@
 Survival horror game made in 72 hours for Ludum Dare 48 Game Jam.
 Theme: Deeper and Deeper
 
+We are planning on working on this post-jam, follow our development on [Itch.io](https://mwahba13.itch.io/vox-machina)
+
 ![cover](Images/VoxMachineCover.png)
 
 ![screen1](Images/VMscreen.png)
