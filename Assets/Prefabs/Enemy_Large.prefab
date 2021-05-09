@@ -664,7 +664,7 @@ MonoBehaviour:
   _huntingPlayerDistance: 3
   DrawPathInEditor: 0
   patrolPathNodes: []
-  stunDuration: 3
+  stunDuration: 5
 --- !u!195 &1469678329400345808
 NavMeshAgent:
   m_ObjectHideFlags: 0

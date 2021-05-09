@@ -259,7 +259,7 @@ MonoBehaviour:
   patrolPathNodes:
   - {fileID: 0}
   - {fileID: 0}
-  stunDuration: 5
+  stunDuration: 2
 --- !u!195 &4168952270109517581
 NavMeshAgent:
   m_ObjectHideFlags: 0
