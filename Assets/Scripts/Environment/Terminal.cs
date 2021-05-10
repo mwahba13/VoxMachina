@@ -23,7 +23,7 @@ public class Terminal : MonoBehaviour
         _face = GetComponentInChildren<TerminalFace>();
     }
 
-    private void OnPlayerCastSpell(ESoundPitch[] list)
+    private void OnPlayerCastSpell(ESoundPitch[] list,bool inSilentZone)
     {
 
         if (_isPlayerNear)

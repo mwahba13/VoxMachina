@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject pauseMenuObj;
     public GameObject deathMenuObj;
-
+    
 
     private FirstPersonController _fpsController;
     private Animator _animator;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public int health = 100;
 
     private bool isDead = false;
+    public bool inSilentZone = false;
     
     // Start is called before the first frame update
     void Start()
@@ -59,11 +60,18 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-
             OnTakeDamage();
             DecrementHealth(10);
-            
         }
+
+        if (other.gameObject.CompareTag("SilentVolume"))
+            inSilentZone = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("SilentVolume"))
+            inSilentZone = false;
     }
 
     private void OnTakeDamage()

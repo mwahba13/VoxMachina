@@ -47,8 +47,11 @@ public class EnemyEventHandler : MonoBehaviour
     }
 
 
-    private void OnPlayerCastSpell(ESoundPitch[] list)
+    private void OnPlayerCastSpell(ESoundPitch[] list,bool inSilentZone)
     {
+        if(inSilentZone)
+            return;
+        
         //if player is within hearing radius and makes sensitive sound
         if (!_isPlayerNear)
         {

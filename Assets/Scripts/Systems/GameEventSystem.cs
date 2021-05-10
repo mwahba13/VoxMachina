@@ -13,13 +13,13 @@ public class GameEventSystem : MonoBehaviour
         current = this;
     }
 
-    public event Action<ESoundPitch[]> OnPlayerCastSpell;
+    public event Action<ESoundPitch[],bool> OnPlayerCastSpell;
 
-    public void PlayerCastSpell(ESoundPitch[] list)
+    public void PlayerCastSpell(ESoundPitch[] list, bool inSilentZone)
     {
         if (OnPlayerCastSpell != null)
         {
-            OnPlayerCastSpell(list);
+            OnPlayerCastSpell(list, inSilentZone);
         }
     }
 

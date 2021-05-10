@@ -77,6 +77,7 @@ public class PlayerVoicebox : MonoBehaviour
     
     private AudioSource _audioSource;
     private PlayerAudioManager _audioManager;
+    private PlayerController _controller;
     
     public Animator _animator;
     public Animator _particleAnimator;
@@ -93,6 +94,7 @@ public class PlayerVoicebox : MonoBehaviour
 
         _spellTimer = 3.0f;
         _cooldownTimer = 0.0f;
+        _controller = GetComponent<PlayerController>();
         //_spellcast = GetComponent<PlayerSpellcast>();
         _audioSource = GetComponent<AudioSource>();
         _audioManager = GetComponentInChildren<PlayerAudioManager>();
@@ -158,8 +160,11 @@ public class PlayerVoicebox : MonoBehaviour
             ESoundPitch tempPitch;
 
             _audioManager.PlayThreeHitClip();
+            
+            
+            
             //add sound to appropriate array
-            if (_spellTimer > 2.0f)
+            if (_spellTimer >= 2.0f)
             {
                 
                 tempPitch = AddPitchToArray(lastSound, firstSoundArray);
@@ -173,7 +178,7 @@ public class PlayerVoicebox : MonoBehaviour
 
             }
 
-             if (_spellTimer < 1.9f)
+             if (_spellTimer < 2.0f && _spellTimer >= 1.0f)
             {
                 tempPitch = AddPitchToArray(lastSound, secondSoundArray);
                 ChangePanelColor(_pitchMat2,_pitchLight2,tempPitch);
@@ -187,7 +192,7 @@ public class PlayerVoicebox : MonoBehaviour
 
 
              
-            if (_spellTimer < 0.9f)
+            if (_spellTimer < 1.0f)
             {
                 tempPitch = AddPitchToArray(lastSound, ThirdSoundArray);
                 ChangePanelColor(_pitchMat3,_pitchLight3,tempPitch);
@@ -215,7 +220,7 @@ public class PlayerVoicebox : MonoBehaviour
             _cooldownTimer = cooldownDuration;
            // _spellcast.CastSpell(soundArray);
            _audioManager.PlayTargetSuccessClip();
-            GameEventSystem.current.PlayerCastSpell(soundArray);
+            GameEventSystem.current.PlayerCastSpell(soundArray,_controller.inSilentZone);
             isRecording = false;
             _animator.SetBool("isRecording",false);
             _particleAnimator.SetTrigger("Send");

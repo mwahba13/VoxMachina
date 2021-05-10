@@ -35,7 +35,7 @@ public class VoiceDoor : MonoBehaviour
 
 
 
-    private void OnPlayerCastSpell(ESoundPitch[] list)
+    private void OnPlayerCastSpell(ESoundPitch[] list, bool inSilentZone)
     {
         
         if (_playerIsNear && IsKeyMatched(list))
